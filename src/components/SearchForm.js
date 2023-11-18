@@ -1,14 +1,34 @@
+import React, { useState } from "react";
 import { Text, View, StyleSheet, TextInput, Button } from "react-native";
-import { useState } from "react";
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 export default function SearchForm() {
-  const [from, setFrom] = useState("defalt");
+  const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
+  const [departDate, setDepartDate] = useState(new Date());
+  const [returnDate, setReturnDate] = useState(new Date());
+  const [showDepartDatePicker, setShowDepartDatePicker] = useState(false);
+  const [showReturnDatePicker, setShowReturnDatePicker] = useState(false);
 
   const onSearchButton = () => {
-    console.log("Search for : ", from);
-    console.log("To for : ", to);
+    console.log("Search from:", from);
+    console.log("Search to:", to);
+    console.log("Departure Date:", departDate);
+    console.log("Return Date:", returnDate);
   };
+
+  const onDepartDateChange = (event, selectedDate) => {
+    const currentDate = selectedDate || departDate;
+    setShowDepartDatePicker(false);
+    setDepartDate(currentDate);
+  };
+
+  const onReturnDateChange = (event, selectedDate) => {
+    const currentDate = selectedDate || returnDate;
+    setShowReturnDatePicker(false);
+    setReturnDate(currentDate);
+  };
+
   return (
     <View style={styles.card}>
       <Text style={styles.title}>
@@ -26,7 +46,26 @@ export default function SearchForm() {
         placeholder="To"
         style={styles.inputbox}
       />
-
+      <View style={styles.DatePicker}>
+        <Button title="Select Departure Date" onPress={() => setShowDepartDatePicker(true)} />
+        {showDepartDatePicker && (
+          <DateTimePicker
+            value={departDate}
+            mode="date"
+            onChange={onDepartDateChange}
+          />
+        )}
+      </View>
+      <View style={styles.DatePicker}>
+        <Button title="Select Return Date" onPress={() => setShowReturnDatePicker(true)} />
+        {showReturnDatePicker && (
+          <DateTimePicker
+            value={returnDate}
+            mode="date"
+            onChange={onReturnDateChange}
+          />
+        )}
+      </View>
       <Button title="Search" onPress={onSearchButton} />
     </View>
   );
@@ -63,4 +102,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     borderRadius: 5,
   },
+  DatePicker:{
+    marginBottom: 10,
+  }
 });
