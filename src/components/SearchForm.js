@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Text, View, StyleSheet, TextInput, Button } from "react-native";
-import DateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 export default function SearchForm() {
   const [from, setFrom] = useState("");
@@ -32,7 +32,7 @@ export default function SearchForm() {
   return (
     <View style={styles.card}>
       <Text style={styles.title}>
-        Search the best prices for your next trip
+        Discover the best deals for your next trip
       </Text>
       <TextInput
         value={from}
@@ -47,7 +47,10 @@ export default function SearchForm() {
         style={styles.inputbox}
       />
       <View style={styles.DatePicker}>
-        <Button title="Select Departure Date" onPress={() => setShowDepartDatePicker(true)} />
+        <Button
+          title="Select Departure Date"
+          onPress={() => setShowDepartDatePicker(true)}
+        />
         {showDepartDatePicker && (
           <DateTimePicker
             value={departDate}
@@ -57,7 +60,10 @@ export default function SearchForm() {
         )}
       </View>
       <View style={styles.DatePicker}>
-        <Button title="Select Return Date" onPress={() => setShowReturnDatePicker(true)} />
+        <Button
+          title="Select Return Date"
+          onPress={() => setShowReturnDatePicker(true)}
+        />
         {showReturnDatePicker && (
           <DateTimePicker
             value={returnDate}
@@ -102,7 +108,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     borderRadius: 5,
   },
-  DatePicker:{
+  DatePicker: {
     marginBottom: 10,
-  }
+  },
 });
